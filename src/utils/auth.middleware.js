@@ -3,7 +3,8 @@ import { User } from '../model/user.model.js';
 import { ApiError } from '../utils/ApiError.js';
 
 const authenticate = async (req, res, next) => {
-    const token = req.cookies?.accessToken || req.header("Authorization").replace("Bearer ", "")
+    console.log(req.cookies);
+    const token = req.cookies?.accessToken || req.header("Authorization").replace("Bearer ", "");
 
     if (!token) {
         return next(new ApiError(401, 'No token provided'));

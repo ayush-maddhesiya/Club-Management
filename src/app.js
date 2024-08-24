@@ -17,4 +17,6 @@ import taskRoutes from "./route/task.route.js"
 app.use("/api/v1/users",userRoutes)
 app.use("/api/v1/users/cards",taskRoutes)
 
+// app.use("/api/v1/users/setting",settingRoutes)
+
 export default app;

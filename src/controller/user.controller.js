@@ -89,17 +89,19 @@ const login = asyncHandler(async (req, res) => {
 
 })
 
-const logOut = asyncHandler(async(req,res)=>{
-    try {
-        return res
-        .status(200)
-        .json(
-            new ApiResponse(200,null,"Logged Out Successfully")
-        )
-    } catch (error) {
-        throw new ApiError(500, error?.message ||  "Internal sevrer erorr not able to logged out")
-    }
-})
+// const logOut = asyncHandler(async(req,res)=>{
+//     try {
+
+//         return res
+//         .status(200)
+//         .json(
+//             new ApiResponse(200,null,"Logged Out Successfully")
+//         )
+//     } catch (error) {
+//         throw new ApiError(500, error?.message ||  "Internal sevrer erorr not able to logged out")
+//     }
+// })
+
 
 export { 
     registerUser,
