@@ -4,7 +4,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import transporter from '../utils/nodemailer.js'
 
 
-// 1. Contact Admin Controller
+// 1. Contact Admin Controller,
 const contactAdmin = asyncHandler(async (req, res) => {
   try {
       const { name, email, message } = req.body;
