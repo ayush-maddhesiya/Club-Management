@@ -12,7 +12,7 @@ const authenticate = async (req, res, next) => {
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        const user = await User.findById(decoded._id).select("-password -");
+        const user = await User.findById(decoded._id).select("-password");
 
         if (!user) {
             return next(new ApiError(401, 'User not found'));

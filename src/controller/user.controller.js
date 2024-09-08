@@ -2,6 +2,7 @@ import { asyncHandler } from "../utils/AsyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { User } from "../model/user.model.js";
+
 const registerUser = asyncHandler(async (req, res) => {
     const { fullName, email, username, password, phoneNumber, type } = req.body;
 
@@ -70,7 +71,29 @@ const login = asyncHandler(async (req, res) => {
         if (!isPasswordValid) {
             throw new ApiError(401, "Invalid user credentials")
         }
-    
+        
+        const accessToken = jwt.sign({id: user._id},process.env.JWT_SECRET, {
+            expiresIn: process.env.JWT_EXPIRES_IN
+        });
+
+        const refreshToken = jwt.sign({id: user._id},process.env.REFRESH_TOKEN_SECRET, {
+            expiresIn: process.env.REFRESH_TOKEN_EXPIRES_IN
+        })
+
+        res.cookie ("refreshToken", refreshToken, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: "none",
+            maxAge:   24 * 60 * 60 * 1000
+        })
+
+        res.cookie ("accessToken", accessToken, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: "none",
+            maxAge:  2 * 24 * 60 * 60 * 1000
+        })
+
         const loggedInUser = await User.findById(user._id).select("-password")
     
         return res
@@ -106,5 +129,5 @@ const login = asyncHandler(async (req, res) => {
 export { 
     registerUser,
     login,
-    logOut
+   // logOut
 }
