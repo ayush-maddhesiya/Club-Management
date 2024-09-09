@@ -1,7 +1,7 @@
 import { asyncHandler } from "../utils/AsyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
-import transporter from '../utils/nodemailer.js'
+import {transporter} from '../utils/nodemailer.js'
 
 
 // 1. Contact Admin Controller,

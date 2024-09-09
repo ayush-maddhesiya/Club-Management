@@ -6,7 +6,7 @@ import {
 }  from "./../controller/help.controller.js"
 const router = Router();
 
-router.route("/").get(contactAdmin);
+router.route("/contact").get(contactAdmin);
 router.route("/faq").get(faq);
 router.route("/feedback").post(feedback);
 export default router

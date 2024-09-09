@@ -2,7 +2,7 @@ import { asyncHandler } from "../utils/AsyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { User } from "../model/user.model.js";
-
+import jwt from 'jsonwebtoken';
 const registerUser = asyncHandler(async (req, res) => {
     const { fullName, email, username, password, phoneNumber, type } = req.body;
 
@@ -26,7 +26,7 @@ const registerUser = asyncHandler(async (req, res) => {
             email,
             password,
             phoneNumber,
-            username: username.toLowerCase(),
+            username: username.trim().toLowerCase(),
             type: type
         })
     
