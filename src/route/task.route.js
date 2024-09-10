@@ -8,7 +8,7 @@ import {
 
 import { authenticate } from "../utils/auth.middleware.js";
 const router = Router();
-router.use(authenticate)
+ router.use(authenticate)
 router.route("/registerTask").post(registerTask);
 router.route("/listofAvabliemember").get(listOfAvablie);
 router.route("/updateTask").post(updateTask);

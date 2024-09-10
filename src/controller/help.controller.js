@@ -3,7 +3,7 @@ import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import {transporter} from '../utils/nodemailer.js'
 
-
+//Done
 // 1. Contact Admin Controller,
 const contactAdmin = asyncHandler(async (req, res) => {
   try {
@@ -15,6 +15,8 @@ const contactAdmin = asyncHandler(async (req, res) => {
           subject: 'Contact Admin Request',
           text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
       };
+      console.log(mailOptions);
+      
 
       await transporter.sendMail(mailOptions);
 
