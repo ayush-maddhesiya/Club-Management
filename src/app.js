@@ -17,9 +17,8 @@ import taskRoutes from "./route/task.route.js"
 import settingRoutes from "./route/setting.route.js";
 import helpRoutes from './route/help.route.js'
 app.use("/api/v1/users",userRoutes)
-app.use("/api/v1/users/cards",taskRoutes)
-app.use("/api/v1/users/setting",settingRoutes)
-app.use("/api/v1/users/help",helpRoutes)
-// app.use("/api/v1/users/setting",settingRoutes)
+app.use("/api/v1/cards",taskRoutes)
+app.use("/api/v1/setting",settingRoutes)
+app.use("/api/v1/help",helpRoutes)
 
 export default app;

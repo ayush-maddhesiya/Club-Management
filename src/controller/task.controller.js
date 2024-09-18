@@ -74,6 +74,47 @@ const updateTask = asyncHandler(async (req, res) => {
     res.status(200).json(new ApiResponse(200, updatedTask, "Task updated successfully"));
 });
 
+const registerCard = asyncHandler(async (req, res) => {
+    const {createdBy} = req.body;
+    const user = await User.findById(createdBy);
+
+    if(user.type !== "admin"){
+        throw new ApiError(401, "You are not allowed to create a card");
+    }
+/**
+ *
+  {
+  "title": "Build User Authentication Module",
+  "description": "Develop and integrate user authentication with JWT for the project.",
+  "status": "In Progress",
+  "assignedTo": ["64ab5f8c7f5b340d5b0d3c8b", "64ab5f8c7f5b340d5b0d3c8c"],
+  "createdBy": "66e8e55e9216915e7f19e022",
+  "deadline": "2024-10-01T00:00:00.000Z",
+  "progress": 40
+    
+  }
+ */
+    const { title, description, deadline, assignedTo,progress,status } = req.body;
+
+    const task = await Task.create({
+        title,
+        description,
+        deadline,
+        assignedTo,
+        createdBy,
+        progress,
+        status
+    });
+
+    if (!task) {
+        throw new ApiError(500, "Task not created successfully");
+    }
+
+    res.status(200).json(new ApiResponse(200, task, "Task created successfully"));
+
+})
+
+
 // Read a task
 const readTask = asyncHandler(async (req, res) => {
     const { taskId } = req.body;
@@ -91,9 +132,27 @@ const readTask = asyncHandler(async (req, res) => {
     res.status(200).json(new ApiResponse(200, task, "Task details fetched successfully"));
 });
 
+const deleteTask = asyncHandler(async (req, res) => {
+    const { taskId } = req.body;   
+
+    if (!taskId || !isValidObjectId(taskId)) {
+        throw new ApiError(400, "Task ID is either empty or not valid");
+    }
+
+    const deletedTask = await Task.findByIdAndDelete(taskId);
+
+    if (!deletedTask) {
+        throw new ApiError(404, "Task not found");
+    }
+
+    res.status(200).json(new ApiResponse(200, deletedTask, "Task deleted successfully"));
+
+});
+
 export {
-    registerTask,
+    registerCard,
     listOfAvablie,
     updateTask,
-    readTask
+    readTask,
+    deleteTask
 };
